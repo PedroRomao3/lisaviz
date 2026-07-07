@@ -1,0 +1,49 @@
+# Standalone packaging for the lisaviz library.
+#
+# lisaviz imports nothing from the surrounding `globalfit` runtime (verified by
+# tests/test_architecture.py for the domain layer, and true for the whole
+# package). It therefore installs on its own with only light, open-source,
+# pip-installable dependencies -- no HPC-specific or git-only packages (NFR-03):
+#
+#     pip install ./lisaviz
+#
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lisaviz"
+version = "0.1.0"
+description = "Interactive diagnostic visualization library for the LISA Global Fit (Galactic Binaries)."
+readme = "README.md"
+requires-python = ">=3.10,<4"
+license = { text = "MIT" }
+authors = [{ name = "Pedro Romao" }]
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=2.0",
+    "tables>=3.8",      # PyTables: pd.read_hdf on the pipeline's HDF5 catalogs
+    "h5py>=3.0",
+    "arviz-stats>=1.0", # array interface only (no xarray / DataTree)
+    "astropy>=5.0",     # sky-coordinate projection
+    "plotly>=5.0",      # interactive backend
+    "matplotlib>=3.6",  # publication-export backend
+    "corner>=2.2",      # corner-plot rendering
+]
+
+[project.optional-dependencies]
+validation = ["emcee>=3.1"]   # optional; a numpy-Metropolis fallback runs without it
+dev = ["pytest>=7.0", "emcee>=3.1"]
+
+[tool.setuptools]
+# Map the distribution package name "lisaviz" onto this directory; subpackages
+# are derived from this parent mapping (lisaviz.domain -> ./domain, etc.).
+package-dir = { "lisaviz" = "." }
+packages = [
+    "lisaviz",
+    "lisaviz.domain",
+    "lisaviz.ingestion",
+    "lisaviz.visualization",
+    "lisaviz.visualization.backends",
+    "lisaviz.validation",
+]

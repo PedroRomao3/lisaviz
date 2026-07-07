@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "lisaviz: a visualization library for the LISA Global Fit"
+authors:
+  - family-names: "Romao"
+    given-names: "Pedro"
+license: MIT
+type: software
+preferred-citation:
+  type: thesis
+  title: "Visualizing the LISA Global Fit: Architecture for High-Dimensional Bayesian Spaces"
+  authors:
+    - family-names: "Romao"
+      given-names: "Pedro"
+  institution:
+    name: "Faculty of Engineering, University of Porto (FEUP)"
+  year: 2026
+  thesis-type: "Master's thesis"
